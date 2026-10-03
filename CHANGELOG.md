@@ -2,6 +2,11 @@
 
 本项目遵循语义化版本。第三方插件，兼容 DeepSeek Harness 0.2.0-rc.2。
 
+## 1.0.3
+
+- 无功能变更：用于验证 npm Trusted Publishing（OIDC）零令牌发布通道。
+- 发布由 GitHub Actions 通过 OIDC 完成，包版本带 provenance 证明。
+
 ## 1.0.2
 
 - 文档：README 增加 npm 版本/下载/许可证徽章、npm 包页与 GitHub Releases 直链。
