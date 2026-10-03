@@ -60,8 +60,23 @@ jobs:
       - name: Typecheck
         run: pnpm run typecheck
 
-      - name: Publish to npm via trusted publishing
-        run: npm publish --registry https://registry.npmjs.org --provenance --access public
+      - name: Publish to npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -n "${NPM_TOKEN:-}" ]; then
+            # 通道 B：仓库密钥里的 fine-grained token（含 bypass 2FA）。
+            # 适合无法完成 2FA 断言的环境；注意在到期前轮换该令牌。
+            echo "publishing with the NPM_TOKEN repository secret"
+            npm publish --registry https://registry.npmjs.org \
+              --//registry.npmjs.org/:_authToken="$NPM_TOKEN" \
+              --access public
+          else
+            # 通道 A：npm Trusted Publishing (OIDC)，无需任何令牌。
+            echo "publishing via OIDC trusted publishing"
+            npm publish --registry https://registry.npmjs.org --provenance --access public
+          fi
 
       - name: Pack the release tarball
         run: pnpm pack
