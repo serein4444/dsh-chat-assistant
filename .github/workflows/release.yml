@@ -1,0 +1,82 @@
+name: release
+
+# 长期发布通道：npm Trusted Publishing (OIDC)。
+#
+# 推一个 v<版本> tag（且与 package.json 的 version 一致）即触发：
+#   1. 安装依赖 → 类型检查
+#   2. npm publish（由 npm 通过 OIDC 校验“发布来自本仓库的该工作流”，无需任何令牌）
+#   3. 打包并把 tarball 挂到同名 GitHub Release
+#
+# 前置条件（一次性，在 npm 包设置页完成）：
+#   Trusted Publisher = GitHub Actions，repo serein4444/dsh-chat-assistant，
+#   workflow release.yml，Environment 留空。
+#
+# 注意：发布前必须把 package.json 的 version 提到与 tag 相同的值。
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write   # 创建 GitHub Release
+  id-token: write   # 换取 npm 的 OIDC 身份
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Ensure a trusted-publishing-capable npm
+        run: npm install --global npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify the tag matches package.json
+        run: |
+          set -euo pipefail
+          pkg_version="$(node -p "require('./package.json').version")"
+          tag_version="${GITHUB_REF_NAME#v}"
+          echo "package.json=$pkg_version tag=$tag_version"
+          if [ "$pkg_version" != "$tag_version" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} does not match package.json version ${pkg_version}"
+            exit 1
+          fi
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Publish to npm via trusted publishing
+        run: npm publish --registry https://registry.npmjs.org --provenance --access public
+
+      - name: Pack the release tarball
+        run: pnpm pack
+
+      - name: Create or update the GitHub Release with the tarball
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tgz="$(ls dsh-chat-assistant-*.tgz | head -n 1)"
+          echo "attaching $tgz"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "$tgz" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$tgz" \
+              --title "${GITHUB_REF_NAME#v}" \
+              --generate-notes
+          fi
