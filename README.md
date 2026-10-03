@@ -1,5 +1,7 @@
 # dsh-chat-assistant
 
+[English](README.en.md) | 中文
+
 [![npm version](https://img.shields.io/npm/v/dsh-chat-assistant.svg)](https://www.npmjs.com/package/dsh-chat-assistant)
 [![npm downloads](https://img.shields.io/npm/dm/dsh-chat-assistant.svg)](https://www.npmjs.com/package/dsh-chat-assistant)
 [![License](https://img.shields.io/npm/l/dsh-chat-assistant.svg)](https://github.com/serein4444/dsh-chat-assistant/blob/main/LICENSE)
