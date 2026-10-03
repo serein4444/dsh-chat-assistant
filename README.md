@@ -74,12 +74,16 @@ pnpm build         # lib/index.js（宿主半，空操作）+ lib/client.js（�
 pnpm typecheck
 ```
 
-装载进源码版 Web UI：
+装载进源码版 Web UI（**可选**，需要一份与目标版本一致的 DSH 源码检出）：
 
 ```sh
+# 不要用 master HEAD：接口会漂移；按 tag 取与兼容基线一致的版本
+git clone --depth 1 --branch dsh-v0.2.0-rc.2 https://github.com/deepseek-ai/deepseek-harness
+cd deepseek-harness && pnpm install
 pnpm dsh web --patch <绝对路径>/chat-assistant/dev.patch.yml --no-open --port 3800
 ```
 
+- 兼容基线锁定 `dsh-v0.2.0-rc.2`（commit `639ed015397290b3745d163aafe02ffee4aa3f84`）；升级 DSH 后需回归右栏 tab 注册/关闭钩子与草稿附件契约；
 - 模块注册表服务 `lib/client.js` 而非源码，改动后需重新 build 再刷新；
 - 本机注意：3080 端口落在 Windows 保留段，示例用 3800；页面与 `/api` 需启动日志中 URL 的 token；`/plugins` bundle 路由按「路径+查询串」精确匹配，附加额外参数即 404。
 
