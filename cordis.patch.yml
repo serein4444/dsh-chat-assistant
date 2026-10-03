@@ -1,0 +1,11 @@
+# dsh-chat-assistant bundle layer: one dual-face plugin row.
+#
+# The row's host half is an intentional no-op (the fork-based auxiliary chat
+# is entirely client-orchestrated); the same package's `dsh.client`
+# declaration lets dsh-client-modules serve the browser half from
+# lib/client.js with no per-plugin wiring. Users can override this row by id
+# in their own profile cordis.patch.yml (restating every key they change,
+# including `name`).
+- insert:
+    - id: chat-assistant
+      name: dsh-chat-assistant

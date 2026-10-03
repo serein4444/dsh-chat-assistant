@@ -1,0 +1,21 @@
+# Local development overlay: load the built plugin into `dsh web` without
+# installing the bundle into a profile.
+#
+#   cd chat-assistant
+#   pnpm install && pnpm build
+#   cd ../download/deepseek-harness
+#   pnpm dsh web --patch E:/fuzhuduihua_chajian/chat-assistant/dev.patch.yml --no-open --port 3800
+#
+# Plugin paths must be absolute; this file pins this machine's checkout.
+# The modules registry serves the browser half from lib/client.js, so rebuild
+# before reloading after source changes.
+#
+# Port notes (this machine): 3080 falls inside a Windows excluded range
+# (netsh interface ipv4 show excludedportrange protocol=tcp); use 3800.
+# Page and /api routes need the URL token printed on startup; /plugins bundle
+# routes need none, but their lookup key is the exact "path + query" string —
+# appending any extra parameter turns them into 404.
+- insert:
+    - id: chat-assistant
+      name: 'E:/fuzhuduihua_chajian/chat-assistant/lib/index.js'
+

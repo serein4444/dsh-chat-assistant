@@ -1,0 +1,23 @@
+{
+  // Editor convenience config. The plugin has two compiler faces whose type
+  // worlds conflict (the host face sees Context.sessions: SessionStore from
+  // dsh-session; the browser face sees ISessions from
+  // dsh-api-session-controller/client), so authoritative typechecking runs
+  // per face: `pnpm typecheck` → tsconfig.host.json + tsconfig.client.json.
+  "compilerOptions": {
+    "target": "es2024",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["es2024", "dom"],
+    "types": ["node"],
+    "strict": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src", "tsdown.config.ts"]
+}

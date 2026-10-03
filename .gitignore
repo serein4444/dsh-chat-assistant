@@ -1,0 +1,13 @@
+# 依赖与构建产物
+node_modules/
+
+# 打包产物（发布时用 pnpm pack 重新生成）
+*.tgz
+
+# 日志与本地状态
+*.log
+dev-server.log
+
+# 编辑器与系统
+.DS_Store
+Thumbs.db
