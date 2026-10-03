@@ -84,7 +84,7 @@ const AUX_CHAT_TAB_ID = 'dsh-chat-assistant/auxchat'
 /** Upper bound for one selection forwarded into the auxiliary chat. */
 const SELECTION_MAX_CHARS = 4000
 
-/** ZCode-style quote limits: at most 8 selections, 16000 chars in total. */
+/** Quote limits: at most 8 selections, 16000 chars in total. */
 const QUOTE_MAX_COUNT = 8
 const QUOTE_MAX_TOTAL_CHARS = 16000
 
@@ -94,9 +94,8 @@ const COMPOSER_WAIT_MS = 6000
 /**
  * Boundary-constraint file auto-attached to every FRESH auxiliary chat (the
  * user's design: the rules ride a visible, deletable attachment — removing
- * the chip unbinds the constraints). English rules for the model (ZCode
- * styles its boundary the same way for instruction reliability); the Chinese
- * note explains the removal gesture to the user.
+ * the chip unbinds the constraints). English rules for the model (instruction
+ * reliability); the Chinese note explains the removal gesture to the user.
  */
 const AUX_CONSTRAINT_MARKDOWN = [
   '# 辅助对话边界约束',
@@ -906,11 +905,10 @@ export function apply(ctx: Context, config: unknown): void {
 
   /**
    * Merge one selection into the pending quote attachment of an aux chat —
-   * ZCode semantics: identical selections dedupe silently; count/total limits
-   * refuse loudly; each staging replaces the previous file so the composer
-   * always shows exactly ONE quote chip no matter how many passages were
-   * collected. Returns 'staged' | 'duplicate' (terminal) or 'busy' (caller
-   * should retry).
+   * identical selections dedupe silently; count/total limits refuse loudly;
+   * each staging replaces the previous file so the composer always shows
+   * exactly ONE quote chip no matter how many passages were collected.
+   * Returns 'staged' | 'duplicate' (terminal) or 'busy' (caller should retry).
    */
   const stageQuote = (childId: SessionId, actx: Context, text: string): 'staged' | 'duplicate' | 'busy' => {
     const input = ctx.conversation.input.for(actx)

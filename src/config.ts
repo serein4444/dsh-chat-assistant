@@ -15,7 +15,7 @@ export interface ChatAssistantConfig {
   readonly selectionChip: boolean
 }
 
-/** Default command names: `/side` primary, `/btw` as the ZCode synonym. */
+/** Default command names: `/side` primary, `/btw` as a synonym. */
 export const DEFAULT_COMMAND_NAMES: readonly string[] = ['side', 'btw']
 
 const KNOWN_KEYS = new Set(['commandNames', 'selectionChip'])

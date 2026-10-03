@@ -65,8 +65,7 @@
     "cordis",
     "plugin",
     "auxiliary-chat",
-    "sidebar",
-    "zcode"
+    "sidebar"
   ],
   "engines": {
     "node": ">=22.19"

@@ -13,7 +13,7 @@ export interface ChatAssistantConfig {
     /** Show the selection chip ("打开辅助对话") when text is selected in the page. */
     readonly selectionChip: boolean;
 }
-/** Default command names: `/side` primary, `/btw` as the ZCode synonym. */
+/** Default command names: `/side` primary, `/btw` as a synonym. */
 export declare const DEFAULT_COMMAND_NAMES: readonly string[];
 /**
  * Validate and default one composed row config. Fails loud on wrong types,
