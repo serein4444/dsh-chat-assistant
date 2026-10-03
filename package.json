@@ -1,6 +1,6 @@
 {
   "name": "dsh-chat-assistant",
-  "version": "1.0.1",
+  "version": "1.0.2",
 
   "description": "Auxiliary chat for DeepSeek Harness: a docked right-sidebar conversation forked from the main session, with full history; selection hand-off stages a packaged quote attachment; fresh chats auto-attach a deletable boundary-constraint file; closing its tab archives the fork automatically.",
   "type": "module",

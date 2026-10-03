@@ -1,8 +1,15 @@
 # dsh-chat-assistant
 
+[![npm version](https://img.shields.io/npm/v/dsh-chat-assistant.svg)](https://www.npmjs.com/package/dsh-chat-assistant)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-chat-assistant.svg)](https://www.npmjs.com/package/dsh-chat-assistant)
+[![License](https://img.shields.io/npm/l/dsh-chat-assistant.svg)](https://github.com/serein4444/dsh-chat-assistant/blob/main/LICENSE)
+[![Release](https://img.shields.io/github/v/release/serein4444/dsh-chat-assistant.svg)](https://github.com/serein4444/dsh-chat-assistant/releases)
+
 DeepSeek Harness（DSH）第三方插件：**辅助对话**。从主会话 fork 出一个普通会话，以 `auxchat` 标签**停靠在右侧栏**打开——继承完整历史、可多开、独立选模型；划词引用打包为附件芯片；**关闭标签即自动归档**。
 
 在平台第三方能力内做了两处增强：约束随附可删（删除芯片即解除约束）、关闭即归档（不留孤儿会话）。
+
+发布渠道：[npm](https://www.npmjs.com/package/dsh-chat-assistant) · [GitHub Releases](https://github.com/serein4444/dsh-chat-assistant/releases) · [源码仓库](https://github.com/serein4444/dsh-chat-assistant)
 
 ## 功能
 
@@ -49,12 +56,14 @@ DeepSeek Harness（DSH）第三方插件：**辅助对话**。从主会话 fork 
 
 ## 安装
 
+**npm 包页**：https://www.npmjs.com/package/dsh-chat-assistant
+
 ```sh
-dsh plugin add dsh-chat-assistant                  # npm
-dsh plugin add ./dsh-chat-assistant-<version>.tgz  # 或 tarball
+dsh plugin add dsh-chat-assistant                  # 从 npm 安装（推荐）
+dsh plugin add ./dsh-chat-assistant-<version>.tgz  # 或本地 tarball
 ```
 
-桌面端通过应用内 Plugin Manager 安装，行为一致。
+tarball 也可从 [GitHub Releases](https://github.com/serein4444/dsh-chat-assistant/releases) 下载；桌面端通过应用内 Plugin Manager 安装，行为一致。
 
 ## 本地开发
 
